@@ -10,13 +10,13 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
   const { deployer } = await hre.getNamedAccounts();
   const { deploy } = hre.deployments;
 
-  const lock = await deploy("Token", {
+  const token = await deploy("Token", {
     from: deployer,
     args: [NAME, SYMBOL, TOTAL_SUPPLY],
     log: true,
   });
 
-  console.log(`${NAME}(${SYMBOL}):`, lock.address);
+  console.log(`${NAME}(${SYMBOL}):`, token.address);
 };
 export default func;
 func.tags = ["testbed", "Token"];

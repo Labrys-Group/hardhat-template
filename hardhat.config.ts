@@ -1,11 +1,12 @@
 import "@nomicfoundation/hardhat-toolbox";
+import "@nomicfoundation/hardhat-verify";
 import dotenv from "dotenv";
 import "hardhat-deploy";
 import type { HardhatUserConfig } from "hardhat/config";
 import type { NetworkUserConfig } from "hardhat/types";
 
 import "./tasks/accounts";
-import "./tasks/lock";
+import "./tasks/verify";
 
 dotenv.config();
 
@@ -21,12 +22,12 @@ const accounts = () => {
 };
 
 const getChainConfig = (chain: keyof typeof chainIds): NetworkUserConfig => {
-  const alchemyUrl = `https://eth-${chainIds[chain]}.alchemyapi.io/v2/${process.env.ALCHEMY_API_KEY}`;
+  const chainId = chainIds[chain];
 
   return {
     accounts: accounts(),
-    chainId: chainIds[chain],
-    url: alchemyUrl,
+    chainId,
+    url: `https://${chainId}.rpc.thirdweb.com`,
   };
 };
 
